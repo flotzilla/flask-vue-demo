@@ -1,0 +1,89 @@
+$color-border-main: #cccccc;
+$color-background-dark: rgba(0, 0, 0, 0.1);
+$color-background-light: rgba(255, 255, 255, 0.1);
+
+$color-text-main-header: rgb(255, 255, 255);
+$color-text-main: rgb(200, 200, 200);
+$color-header-gold: #f3e844;
+$color-link-main: #ddd;
+$color-link-main-block-hover: rgba(255, 255, 255, 0.06);
+
+$text-shadow-logo: 1px 1px 3px #779fe4;
+
+
+// Main styles
+
+body {
+  height: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+#app {
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
+}
+
+header, footer {
+  flex: 0 0 auto;
+}
+
+footer {
+  background: $color-background-dark;
+  padding: 20px;
+  color: $color-text-main-header;
+}
+
+header {
+  flex-direction: row;
+  justify-content: baseline;
+  align-items: center;
+  display: flex;
+
+  nav {
+    flex-direction: row;
+    align-items: flex-start;
+    display: flex;
+    justify-content: space-around;
+
+    div {
+      //width: 200px;
+      margin: auto;
+      padding: 10px;
+      display: inline-block;
+      transition: background-color 600ms ease;
+
+      border-bottom-left-radius: 10px;
+      border-bottom-right-radius: 10px;
+
+      &:hover {
+        background-color: $color-link-main-block-hover;
+      }
+
+      a {
+        color: $color-link-main;
+        transition: color 1s ease;
+        text-decoration: none;
+
+        font-family: "Bloger-Sans-b", serif;
+        &:hover {
+          text-shadow: 0 1px 1px #779fe4;
+        }
+      }
+    }
+  }
+}
+
+.main-section {
+  flex: 1;
+  padding: 10px;
+  display: flex;
+  flex-direction: row;
+
+  margin-top: 15px;
+  border-top: 1px groove $color-border-main;
+  border-bottom: 1px groove $color-border-main;
+  //background-color: $color-background-light;
+  background: linear-gradient(rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.03));
+}
