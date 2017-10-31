@@ -34,8 +34,7 @@
         this.activeInfo = !this.activeInfo
       },
       onclick: function () {
-        console.log(this)
-        router.push({ path: `/movie/${this.item.id}` })
+        router.push({ path: `/movie/${this.item.id}`, component: this.item })
       }
     }
   }

@@ -7,7 +7,13 @@
 
 <script>
   export default {
-    name: 'Movie'
+    name: 'Movie',
+    props: ['item'],
+    created () {
+      console.log(this)
+//      console.log(this.route)
+    }
+
   }
 </script>
 

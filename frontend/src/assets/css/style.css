@@ -75,8 +75,11 @@ header {
         padding: 5px 20px;
         margin: 10px;
         outline: none;
-        color: #8e8e82;
-        border: 3px solid #ccbf2d; }
+        color: #fff;
+        border: 2px solid #ffffff;
+        background-color: #d6d0d038; }
+        header div.wrapper div.search-block input:hover {
+          box-shadow: 1px 1px 5px #fff; }
 
 .main-section {
   flex: 1;
@@ -106,7 +109,12 @@ header {
       transition: color 600ms ease; }
       .genres-list ul li:hover {
         box-shadow: 1px 1px 5px #fff;
+        transform: scale(1.1);
         color: #e62d2d; }
+
+.filterActive {
+  color: #e62d2d;
+  box-shadow: 1px 1px 5px #fff; }
 
 .movie-list-wrapper {
   padding: 10px 20px;
@@ -128,6 +136,10 @@ header {
   position: relative; }
   .movie-list-item:hover {
     box-shadow: 1px 1px 5px #fff; }
+  .movie-list-item .movie-poster img {
+    transition: all .2s ease-in-out; }
+    .movie-list-item .movie-poster img:hover {
+      transform: scale(1.01); }
   .movie-list-item .movie-info {
     font-family: 'Roboto', Serif;
     position: absolute;

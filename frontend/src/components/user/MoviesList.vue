@@ -3,17 +3,15 @@
     <!--<router-link to="/movie/12">asdasd</router-link>-->
     <div class="genres-list">
       <ul>
-        <li>All</li>
-        <li>Comedy</li>
-        <li>Drama</li>
-        <li>Action</li>
-        <li>Adventure</li>
-        <li>Crime</li>
+        <li v-for="filter in filters" @click="selectFilter(filter)" :class="{ filterActive: activeFilter === filter }">
+          {{filter}}
+        </li>
       </ul>
     </div>
 
     <div class="movie-list">
-      <MovieListItem v-for="item in items" :key="item.id" :item="item" class="movie-list-item"></MovieListItem>
+      <MovieListItem v-for="item in filteredList"
+                     :key="item.id" :item="item" class="movie-list-item"></MovieListItem>
     </div>
 
 
@@ -25,15 +23,18 @@
 
   export default {
     name: 'MoviesList',
+    props: ['searchable'],
     components: {
       MovieListItem: MovieListItem
     },
     data () {
       return {
+        activeFilter: 'all',
+        filters: ['all', 'action', 'drama', 'comedy', 'crime'],
         items: [
           {
             id: 1,
-            name: 'Blade runner 2049',
+            name: 'Sunrise',
             description: 'Grate successor of original Blade runner movie',
             price: 12.50,
             genres: ['action', 'drama'],
@@ -45,10 +46,10 @@
           },
           {
             id: 2,
-            name: 'Blade runner 2049',
+            name: 'Key Largo',
             description: 'Grate successor of original Blade runner movie',
             price: 12.50,
-            genres: ['action', 'drama', 'comedey', 'crime', 'crime', 'crime', 'crime'],
+            genres: ['action', 'drama', 'comedy', 'crime', 'crime', 'crime', 'crime'],
             poster_url: 'http://lorempixel.com/250/400/',
             duration: 120,
             session_date: new Date(),
@@ -56,10 +57,10 @@
           },
           {
             id: 3,
-            name: 'Blade runner 2049',
+            name: 'L. A. Confidential',
             description: 'Grate successor of original Blade runner movie',
             price: 12.50,
-            genres: ['action', 'drama'],
+            genres: ['comedy'],
             poster_url: 'http://lorempixel.com/250/400/',
             duration: 120,
             session_date: new Date(),
@@ -81,7 +82,7 @@
             name: 'Blade runner 2049',
             description: 'Grate successor of original Blade runner movie',
             price: 12.50,
-            genres: ['action', 'drama'],
+            genres: ['drama'],
             poster_url: 'http://lorempixel.com/250/400/',
             duration: 120,
             session_date: new Date(),
@@ -91,6 +92,34 @@
       }
     },
 
+    computed: {
+      filteredList: function () {
+        let self = this
+        let filtered = this.items
+        if (this.searchable.length > 0) {
+          filtered = this.items.filter((item) => {
+            return item.name.toLowerCase().includes(this.searchable.toLowerCase())
+          })
+        }
+
+        if (this.activeFilter === 'all') {
+          return filtered
+        }
+
+        filtered = filtered.filter(item => {
+          return item.genres.find((val) => {
+            return val === self.activeFilter
+          })
+        })
+        return filtered
+      }
+    },
+
+    methods: {
+      selectFilter: function (filter) {
+        this.activeFilter = filter
+      }
+    },
     created: function () {
     }
   }

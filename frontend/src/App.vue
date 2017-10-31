@@ -9,12 +9,12 @@
             <router-link to="/login">Login</router-link>
         </nav>
         <div class="search-block">
-          <input type="text" placeholder="search"/>
+          <input type="search" placeholder="search" v-model="search"/>
         </div>
       </div>
     </header>
     <main class="main-section">
-      <router-view/>
+      <router-view :searchable="search"></router-view>
     </main>
     <footer></footer>
   </div>
@@ -22,7 +22,12 @@
 
 <script>
   export default {
-    name: 'app'
+    name: 'app',
+    data () {
+      return {
+        search: ''
+      }
+    }
   }
 </script>
 
