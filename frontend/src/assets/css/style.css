@@ -1,7 +1,18 @@
+@font-face {
+  font-family: "Roboto";
+  src: url(../fonts/Roboto-Regular.ttf);
+  font-style: normal;
+  font-weight: normal; }
+@font-face {
+  font-family: "Roboto";
+  src: url(../fonts/Roboto-Medium.ttf);
+  font-style: normal;
+  font-weight: 500; }
 body {
   height: 100%;
-  max-width: 1200px;
-  margin: 0 auto; }
+  margin: 0 auto;
+  background: #2d2b27;
+  min-width: 400px; }
 
 #app {
   display: flex;
@@ -12,45 +23,194 @@ header, footer {
   flex: 0 0 auto; }
 
 footer {
-  background: rgba(0, 0, 0, 0.1);
+  background-color: #101010;
   padding: 20px;
   color: white; }
 
 header {
-  flex-direction: row;
-  justify-content: baseline;
+  justify-content: center;
   align-items: center;
-  display: flex; }
-  header nav {
-    flex-direction: row;
-    align-items: flex-start;
+  display: flex;
+  background-color: #101010;
+  height: 70px; }
+  header div.wrapper {
     display: flex;
-    justify-content: space-around; }
-    header nav div {
-      margin: auto;
+    justify-content: center;
+    flex-direction: row;
+    max-width: 1200px;
+    width: 100%;
+    align-self: center; }
+    header div.wrapper .main-logo {
+      width: 100%;
       padding: 10px;
-      display: inline-block;
-      transition: background-color 600ms ease;
-      border-bottom-left-radius: 10px;
-      border-bottom-right-radius: 10px; }
-      header nav div:hover {
-        background-color: rgba(255, 255, 255, 0.06); }
-      header nav div a {
-        color: #ddd;
-        transition: color 1s ease;
+      display: flex; }
+      header div.wrapper .main-logo a.main-logo {
+        color: #ddc88e;
         text-decoration: none;
+        margin: 10px;
+        font-size: 2em;
         font-family: "Bloger-Sans-b", serif; }
-        header nav div a:hover {
-          text-shadow: 0 1px 1px #779fe4; }
+    header div.wrapper nav {
+      flex-direction: row;
+      align-items: center;
+      justify-content: flex-end;
+      display: flex;
+      width: 100%; }
+      header div.wrapper nav a {
+        color: #ddd;
+        text-decoration: none;
+        margin: 10px;
+        font-size: 1.5em;
+        font-family: "Bloger-Sans-b", serif; }
+        header div.wrapper nav a:hover {
+          text-shadow: 0 1px 1px #478d94; }
+    header div.wrapper div.search-block {
+      justify-content: flex-end;
+      align-self: center;
+      display: flex;
+      padding-right: 10px; }
+      header div.wrapper div.search-block input {
+        font-size: 1.03em;
+        border-radius: 20px;
+        padding: 5px 20px;
+        margin: 10px;
+        outline: none;
+        color: #8e8e82;
+        border: 3px solid #ccbf2d; }
 
 .main-section {
   flex: 1;
-  padding: 10px;
   display: flex;
   flex-direction: row;
-  margin-top: 15px;
-  border-top: 1px groove #cccccc;
-  border-bottom: 1px groove #cccccc;
-  background: linear-gradient(rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.03)); }
+  align-self: center;
+  max-width: 1200px;
+  width: 100%;
+  color: #ffffff; }
+
+.genres-list {
+  color: #ffffff;
+  display: inline-block; }
+  .genres-list ul {
+    padding: 0; }
+    .genres-list ul li {
+      display: inline-block;
+      list-style-type: none;
+      border: 1px solid #fff;
+      padding: 10px;
+      margin: 5px;
+      font-family: 'Roboto', Serif;
+      font-weight: 500;
+      font-size: 1.2em;
+      cursor: pointer;
+      box-shadow: 1px 1px 2px #497275;
+      transition: color 600ms ease; }
+      .genres-list ul li:hover {
+        box-shadow: 1px 1px 5px #fff;
+        color: #e62d2d; }
+
+.movie-list-wrapper {
+  padding: 10px 20px;
+  width: 100%; }
+
+.movie-list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between; }
+
+.movie-list-item {
+  cursor: pointer;
+  height: 400px;
+  width: 250px;
+  background: inherit;
+  color: #ffffff;
+  border: 1px solid #ffff;
+  margin-top: 30px;
+  position: relative; }
+  .movie-list-item:hover {
+    box-shadow: 1px 1px 5px #fff; }
+  .movie-list-item .movie-info {
+    font-family: 'Roboto', Serif;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    background-color: rgba(0, 0, 0, 0.8);
+    border-top: 1px solid #2d2b27;
+    width: 100%; }
+  .movie-list-item .ribbon {
+    position: absolute;
+    right: -5px;
+    top: -5px;
+    z-index: 1;
+    overflow: hidden;
+    width: 75px;
+    height: 75px;
+    text-align: right; }
+    .movie-list-item .ribbon span {
+      font-size: 20px;
+      font-weight: bold;
+      color: #FFF;
+      text-transform: uppercase;
+      text-align: center;
+      line-height: 20px;
+      transform: rotate(45deg);
+      -webkit-transform: rotate(45deg);
+      width: 100px;
+      display: block;
+      background: #79A70A;
+      background: linear-gradient(#2989d8 0%, #1e5799 100%);
+      box-shadow: 0 3px 10px -5px black;
+      position: absolute;
+      top: 19px;
+      right: -21px; }
+      .movie-list-item .ribbon span::before {
+        content: "";
+        position: absolute;
+        left: 0px;
+        top: 100%;
+        z-index: -1;
+        border: 3px solid #1e5799;
+        border-right-color: transparent;
+        border-bottom-color: transparent; }
+      .movie-list-item .ribbon span:after {
+        content: "";
+        position: absolute;
+        right: 0px;
+        top: 100%;
+        z-index: -1;
+        border: 3px solid #1e5799;
+        border-bottom-color: transparent;
+        border-left-color: transparent; }
+  .movie-list-item .movie-info-name {
+    font-size: 1.1em;
+    font-weight: 500;
+    color: #fff;
+    text-shadow: 1px 1px 2px #0d63d8;
+    padding: 10px 10px 10px 5px; }
+  .movie-list-item .movie-info-genres, .movie-list-item .movie-info-duration {
+    color: #ddd;
+    padding: 0 0 5px 5px; }
+    .movie-list-item .movie-info-genres:hover, .movie-list-item .movie-info-duration:hover {
+      display: block; }
+
+@media screen and (max-width: 1200px) {
+  .movie-list {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around; }
+
+  header {
+    height: auto;
+    padding-bottom: 20px; }
+    header .wrapper {
+      flex-direction: column !important;
+      justify-content: center !important;
+      width: auto !important; }
+      header .wrapper .main-logo {
+        justify-content: center !important;
+        padding-bottom: 0 !important; }
+      header .wrapper nav {
+        justify-content: center !important; }
+      header .wrapper div.search-block {
+        justify-content: center !important; } }
 
 /*# sourceMappingURL=style.css.map */

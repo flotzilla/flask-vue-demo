@@ -1,13 +1,17 @@
 <template>
   <div id="app">
     <header>
-      <nav>
-        <div>
-          <router-link to="/">Main</router-link>
-          <router-link to="/login">Login</router-link>
-          <!--<a @click="login" >Login</a>-->
+      <div class="wrapper">
+        <div class="main-logo">
+          <router-link class="main-logo" to="/">Ticket booking</router-link>
         </div>
-      </nav>
+        <nav>
+            <router-link to="/login">Login</router-link>
+        </nav>
+        <div class="search-block">
+          <input type="text" placeholder="search"/>
+        </div>
+      </div>
     </header>
     <main class="main-section">
       <router-view/>
@@ -18,9 +22,7 @@
 
 <script>
   export default {
-    name: 'app',
-    methods: {
-    }
+    name: 'app'
   }
 </script>
 
