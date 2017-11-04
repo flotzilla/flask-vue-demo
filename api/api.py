@@ -21,7 +21,7 @@ def index():
     return jsonify(response)
 
 
-@api_v1.route('/movies/',  methods=['GET'])
+@api_v1.route('/movies',  methods=['GET'])
 def movies_list():
     movies = [i.serialize for i in db.session.query(Movie).options(lazyload('children')).all()]
     if len(movies) == 0:

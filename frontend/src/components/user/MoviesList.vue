@@ -9,7 +9,15 @@
       </ul>
     </div>
 
-    <div class="movie-list">
+    <div class="loading" v-if="loading">
+      Loading...
+    </div>
+
+    <div v-if="error" class="error">
+      {{ error }}
+    </div>
+
+    <div class="movie-list" v-if="movies">
       <MovieListItem v-for="item in filteredList"
                      :key="item.id" :item="item" class="movie-list-item"></MovieListItem>
     </div>
@@ -20,6 +28,8 @@
 
 <script>
   import MovieListItem from './MovieListItem.vue'
+  import axios from 'axios'
+  import * as Constants from './../../constants/constants'
 
   export default {
     name: 'MoviesList',
@@ -30,74 +40,19 @@
     data () {
       return {
         activeFilter: 'all',
-        filters: ['all', 'action', 'drama', 'comedy', 'crime'],
-        items: [
-          {
-            id: 1,
-            name: 'Sunrise',
-            description: 'Grate successor of original Blade runner movie',
-            price: 12.50,
-            genres: ['action', 'drama'],
-            poster_url: 'http://lorempixel.com/250/400/',
-            duration: 120,
-            session_date: new Date(),
-            session_start: '21:10',
-            active: true
-          },
-          {
-            id: 2,
-            name: 'Key Largo',
-            description: 'Grate successor of original Blade runner movie',
-            price: 12.50,
-            genres: ['action', 'drama', 'comedy', 'crime', 'crime', 'crime', 'crime'],
-            poster_url: 'http://lorempixel.com/250/400/',
-            duration: 120,
-            session_date: new Date(),
-            session_start: '21.10'
-          },
-          {
-            id: 3,
-            name: 'L. A. Confidential',
-            description: 'Grate successor of original Blade runner movie',
-            price: 12.50,
-            genres: ['comedy'],
-            poster_url: 'http://lorempixel.com/250/400/',
-            duration: 120,
-            session_date: new Date(),
-            session_start: '21.10'
-          },
-          {
-            id: 4,
-            name: 'Blade runner 2049',
-            description: 'Grate successor of original Blade runner movie',
-            price: 12.50,
-            genres: ['action', 'drama'],
-            poster_url: 'http://lorempixel.com/250/400/',
-            duration: 120,
-            session_date: new Date(),
-            session_start: '21.10'
-          },
-          {
-            id: 12,
-            name: 'Blade runner 2049',
-            description: 'Grate successor of original Blade runner movie',
-            price: 12.50,
-            genres: ['drama'],
-            poster_url: 'http://lorempixel.com/250/400/',
-            duration: 120,
-            session_date: new Date(),
-            session_start: '21.10'
-          }
-        ]
+        filters: ['all'],
+        loading: false,
+        movies: [],
+        error: null
       }
     },
 
     computed: {
       filteredList: function () {
         let self = this
-        let filtered = this.items
+        let filtered = this.movies
         if (this.searchable.length > 0) {
-          filtered = this.items.filter((item) => {
+          filtered = this.movies.filter((item) => {
             return item.name.toLowerCase().includes(this.searchable.toLowerCase())
           })
         }
@@ -108,7 +63,7 @@
 
         filtered = filtered.filter(item => {
           return item.genres.find((val) => {
-            return val === self.activeFilter
+            return val.name === self.activeFilter
           })
         })
         return filtered
@@ -118,12 +73,48 @@
     methods: {
       selectFilter: function (filter) {
         this.activeFilter = filter
+      },
+      getMovies () {
+        this.error = this.movies = null
+        this.loading = true
+        axios({method: 'GET', 'url': Constants.API_URL + 'movies'})
+          .then(result => {
+            this.movies = result.data.movies
+            this.loading = false
+          }, error => {
+            this.error = error.toString()
+          })
+      },
+      getGenres () {
+        axios({method: 'GET', 'url': Constants.API_URL + 'genres'})
+          .then(result => {
+            if (result.data.genres.length > 0) {
+              this.parseGenres(result.data.genres)
+            }
+          }, error => {
+            this.loading = false
+            this.error = error.toString()
+          })
+      },
+      parseGenres (list) {
+        let filters = ['all']
+        list.forEach(function (el) {
+          filters.push(el.name)
+        })
+        this.filters = filters
+        console.log(this.filters)
       }
     },
-    created: function () {
+    created () {
+      this.getMovies()
+      this.getGenres()
     }
   }
 </script>
 
 <style>
+  .error{
+      text-align: center;
+      font-size: 2em;
+  }
 </style>

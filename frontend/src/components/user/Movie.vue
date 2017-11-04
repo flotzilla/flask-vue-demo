@@ -54,7 +54,7 @@
     },
     methods: {
       fetchData () {
-        this.error = this.post = null
+        this.error = this.movie = null
         this.loading = true
         axios({method: 'GET', 'url': Constants.API_URL + 'movies/' + this.id})
           .then(result => {
