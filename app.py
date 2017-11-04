@@ -1,7 +1,6 @@
 from flask import Flask, render_template
 from flask_cors import CORS
-from flask_sqlalchemy import SQLAlchemy
-from flask_restful import Api
+from db import db
 
 from api.api import api_v1
 from api.auth import auth
@@ -32,9 +31,7 @@ app = Flask("Ticker-booking",
 app.debug = config.DEBUG
 app.config['SQLALCHEMY_DATABASE_URI'] = config.SQLALCHEMY_DATABASE_URI
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = config.SQLALCHEMY_TRACK_MODIFICATIONS
-
-db = SQLAlchemy(app)
-api = Api(app)
+db.init_app(app)
 
 
 # main route
@@ -47,4 +44,5 @@ def index(path):
 if __name__ == '__main__':
     init_logger()
     init_blue_prints()
+
     app.run('localhost', 5000, app, use_debugger=True, use_reloader=True)
