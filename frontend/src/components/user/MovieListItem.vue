@@ -1,7 +1,7 @@
 <template>
   <div @mouseenter="mouseOver" @mouseleave="mouseOver" @click="onclick">
     <div class="movie-poster">
-      <img :src=item.poster_url alt="">
+      <img :src="imgFolder +  item.poster_url" alt="">
     </div>
     <div class="movie-info">
       <div class="movie-info-name">{{item.name}}</div>
@@ -19,12 +19,14 @@
 
 <script>
   import router from './../../router/index'
+  import * as Constants from './../../constants/constants'
   export default {
     props: ['item'],
     name: 'MovieListItem',
     data () {
       return {
-        activeInfo: false
+        activeInfo: false,
+        imgFolder: Constants.IMG_FOLDER
       }
     },
     created () {

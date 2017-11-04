@@ -11,7 +11,7 @@
     <div v-if="movie">
       <div class="content">
         <div class="column left">
-          <img :src="movie.poster_url" alt="poster" class="poster">
+          <img :src="imgFolder + movie.poster_url" alt="poster" class="poster">
         </div>
         <div class="column right">
           <h2>
@@ -42,7 +42,8 @@
         loading: false,
         movie: null,
         error: null,
-        id: this.$route.params.id
+        id: this.$route.params.id,
+        imgFolder: Constants.IMG_FOLDER
       }
     },
     created () {
